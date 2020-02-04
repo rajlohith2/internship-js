@@ -19,6 +19,23 @@
             </ul>
         </div>
 
+
+        <div ng-controller="myCtrl">
+
+            <input type="text" placeholder= "search..."name="search" ng-model="searchText.fn"/>
+            <table>
+                <tr ng-repeat = "person in employees | orderBy: 'rating'| filter: searchText">
+                    <td>{{ person.fn }}</td> 
+                    <td>{{ person.ln }}</td>
+                    <td>{{ person.gender }}</td>
+                    <td>{{ person.rating }}</td>
+                    <td> 
+                        <input type= "button" name= "ratingIncrease" value= "rate positive" ng-click= "increase(person)"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
 <script>
 var app = angular.module("myApp", []);
 
@@ -26,11 +43,14 @@ app.controller("myCtrl", function($scope) {
   $scope.firstName = "abc";
   $scope.lastName = "xyz";
   var employees = [
-      {fn: "lohith", ln: "raj", gender: "m"},
-      {fn: "loh", ln: "r", gender: "sdm"},
-      {fn: "lohi", ln: "ra", gender: "asm"}
+      {fn: "lohith", ln: "raj", gender: "m", rating: 0},
+      {fn: "loh", ln: "r", gender: "sdm", rating: 0},
+      {fn: "lohi", ln: "ra", gender: "asm", rating: 0}
       ];
       $scope.employees = employees;
+      $scope.increase = function(person){
+          person.rating++;
+      }
 });
 </script>
 </body>
