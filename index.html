@@ -1,57 +1,39 @@
 <!DOCTYPE html>
-<html  ng-app="myApp">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<html ng-app="myApp" ng-controller="appController">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Movie Database</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+        <script src= "search.js"></script>
+    </head>
     <body>
+        <p>Basic Page</p>
 
-        <div>
-            <p>Name : <input type="text" ng-model="name"></p>
-            <h1>Hello {{name}}</h1>
-        </div>
-        <div ng-controller="myCtrl">
-            {{ firstName+ ' '+ lastName }}
-        </div>
+        <h1>Online Movie Database</h1>
 
-        <div ng-controller="myCtrl">
-            <ul>
-                <li ng-repeat = "person in employees">
-                    {{ person.fn + ' ' +person.ln + ' '+ person.gender }}
-                </li>
-            </ul>
-        </div>
+        <div class="topnav">
+            <a href="#">Home</a>
+            <a href="#">Movies</a>
+            <a href="#">TVShows</a>
+            <a href="#">About</a>
+            <a href="#">Contact Us</a>
+            <input type="text" placeholder="search" ng-model="searchText" ng-change="apiCall()">
+            <select ng-model="sort">
+                <option value="Title" selected>Sort By</option>
+                <option value="Title">Title</option>
+                <option value="Year">Year-Most Recent</option>
+                <option value="Ratings[0].Value">Ratings</option>
+              </select>
+
+          </div>
 
 
-        <div ng-controller="myCtrl">
+        <p>{{searchText}}
+      <p ng-repeat="movie in movieData | orderBy: sort">{{movie.Title}}</p>   
+        </p>
 
-            <input type="text" placeholder= "search..."name="search" ng-model="searchText.fn"/>
-            <table>
-                <tr ng-repeat = "person in employees | orderBy: 'rating'| filter: searchText">
-                    <td>{{ person.fn }}</td> 
-                    <td>{{ person.ln }}</td>
-                    <td>{{ person.gender }}</td>
-                    <td>{{ person.rating }}</td>
-                    <td> 
-                        <input type= "button" name= "ratingIncrease" value= "rate positive" ng-click= "increase(person)"/>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-<script>
-var app = angular.module("myApp", []);
-
-app.controller("myCtrl", function($scope) {
-  $scope.firstName = "abc";
-  $scope.lastName = "xyz";
-  var employees = [
-      {fn: "lohith", ln: "raj", gender: "m", rating: 0},
-      {fn: "loh", ln: "r", gender: "sdm", rating: 0},
-      {fn: "lohi", ln: "ra", gender: "asm", rating: 0}
-      ];
-      $scope.employees = employees;
-      $scope.increase = function(person){
-          person.rating++;
-      }
-});
-</script>
-</body>
+    </body>
 </html>
