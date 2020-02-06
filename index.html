@@ -22,18 +22,33 @@
             <a href="#">Contact Us</a>
             <input type="text" placeholder="search" ng-model="searchText" ng-change="apiCall()">
             <select ng-model="sort">
-                <option value="Title" selected>Sort By</option>
-                <option value="Title">Title</option>
+                <option  selected value="Title">Sort By</option>
+                <option value="Title">Title Name</option>
                 <option value="Year">Year-Most Recent</option>
                 <option value="Ratings[0].Value">Ratings</option>
-              </select>
+            </select>
+            <p>{{ sort }}</p>
+        </div>
 
-          </div>
+        <div id="filter-list">
+            <button type="button" name="filter-movie" ng-click="showFilterOptions()">Advanced Search</button>
+            
+            <div ng-if="showFilter" id="filter-box">
+                <ul>
+                    <li>
+                        <input type="checkbox" name="genre" ng-model="genreValue">Genre</input></li>
+                        <ul ng-if="genreValue">
+                            <li><input type="checkbox" name="drama">Drama</input></li>
+                            <li><input type="checkbox" name="action">Action</input></li>
+                            <li><input type="checkbox" name="comedy">Comedy</input></li>
+                        </ul>
+                    </li>
 
+                </ul>
 
-        <p>{{searchText}}
+            </div>
+        </div>
+        <p>{{searchText}}</p>
       <p ng-repeat="movie in movieData | orderBy: sort">{{movie.Title}}</p>   
-        </p>
-
     </body>
 </html>
