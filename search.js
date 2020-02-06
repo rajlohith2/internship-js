@@ -3,7 +3,6 @@ angular.module('myApp',[])
             $scope.apiCall = function() {
                 if($scope.searchText.length >= 3)
                 {
-                    $timeout(function(){
                         $http({
                             url: 'http://www.omdbapi.com/?apikey=f765e195&s='+ $scope.searchText,
                             method: "GET"
@@ -11,7 +10,10 @@ angular.module('myApp',[])
                             function(response) {
                                 $scope.movieData = response.data.Search;
                             })
-                        },1000)
+                        
+                }
+                else{
+                    $scope.movieData = null
                 }
 
        }

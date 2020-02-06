@@ -5,7 +5,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Movie Database</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
         <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
         <script src= "search.js"></script>
     </head>
@@ -20,7 +19,7 @@
             <a href="#">TVShows</a>
             <a href="#">About</a>
             <a href="#">Contact Us</a>
-            <input type="text" placeholder="search" ng-model="searchText" ng-change="apiCall()">
+            <input type="text" placeholder="search" ng-model="searchText" ng-model-options="{debounce: 1000}" ng-change="apiCall()">
             <select ng-model="sort">
                 <option  selected value="Title">Sort By</option>
                 <option value="Title">Title Name</option>
@@ -31,7 +30,7 @@
         </div>
 
         <div id="filter-list">
-            <button type="button" name="filter-movie" ng-click="showFilterOptions()">Advanced Search</button>
+            <button type="button" ng-click="showFilterOptions()">Advanced Search</button>
             
             <div ng-if="showFilter" id="filter-box">
                 <ul>
@@ -43,9 +42,7 @@
                             <li><input type="checkbox" name="comedy">Comedy</input></li>
                         </ul>
                     </li>
-
                 </ul>
-
             </div>
         </div>
         <p>{{searchText}}</p>
