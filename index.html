@@ -20,16 +20,31 @@
             <a href="#">About</a>
             <a href="#">Contact Us</a>
             <input type="text" placeholder="search" ng-model="searchText" ng-model-options="{debounce: 1000}" ng-change="apiCall()">
-            <select ng-model="sort">
-                <option  selected value="Title">Sort By</option>
-                <option value="Title">Title Name</option>
-                <option value="Year">Year-Most Recent</option>
-                <option value="Ratings[0].Value">Ratings</option>
-            </select>
-            <p>{{ sort }}</p>
-        </div>
+            <button ng-click="apiCall">Search</button>
 
-        <div id="filter-list">
+        </div>
+            <table>
+                <th>
+                        <td><button ng-click="sortBy('Title')">Title</button></td>
+                        <td><button ng-click="sortBy('Year')">Year</button></td>
+                        <td>Category</td>
+                </th>      
+                    
+                <tr ng-repeat="movie in movieData | orderBy : sortValue : reverse">
+                    <td></td>
+                    <td>{{movie.Title}}</td>
+                    <td>{{movie.Year}}</td>
+                    <td>{{movie.Type}}</td>
+                </tr>
+            </table>
+
+            <div>
+                <button ng-click="prevHandler()" ng-disabled="pageNo==1 || totalPages==1"> &lt&ltPrevious </button>
+                <button ng-click="nextHandler()" ng-disabled="pageNo==totalPages || totalPages == 1"> Next&gt&gt </button>
+
+            </div>
+
+ <!--       <div id="filter-list">
             <button type="button" ng-click="showFilterOptions()">Advanced Search</button>
             
             <div ng-if="showFilter" id="filter-box">
@@ -43,9 +58,7 @@
                         </ul>
                     </li>
                 </ul>
-            </div>
-        </div>
-        <p>{{searchText}}</p>
-      <p ng-repeat="movie in movieData | orderBy: sort">{{movie.Title}}</p>   
+            </div> -->
+        </div>  
     </body>
 </html>

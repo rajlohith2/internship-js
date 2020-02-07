@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/angular": "^1.6.57"
+    "@types/angular": "^1.6.57",
+    "nodemon": "^2.0.2"
   },
   "dependencies": {
     "angular-route": "^1.7.9",
