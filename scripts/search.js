@@ -1,5 +1,5 @@
-angular.module('myApp',['ngRoute'])
-       .controller('appController',function($scope,$http,$timeout){
+angular.module('myApp',['ngRoute','apiService'])
+       .controller('appController',function($scope,$http){
             $scope.pageNo = 1
             $scope.showFilter = false
             $scope.reverse = false
@@ -30,8 +30,6 @@ angular.module('myApp',['ngRoute'])
                             function(response) {
                                 $scope.movieData = response.data.Search;
                                 $scope.totalPages = parseInt((response.data.totalResults/10))+1;
-                                console.log($scope.totalPages,$scope.pageNo)
-
                             })
                         
                 }
@@ -57,16 +55,30 @@ angular.module('myApp',['ngRoute'])
             $scope.pageNo++;
             $scope.apiCall();
         }
+        $scope.showMovieDetails = function(){
+
+        }
+        $scope.showMessage = function(){
+            if(!$scope.searchText || $scope.searchText.length < 3){
+                return true;
+            }
+            return false;
+        }
+
     })
-    .config(function($routeProvider) {
+    .config(function($routeProvider,$locationProvider) {
         $routeProvider
         .when("/home", {
-          templateUrl : "home.html"
+          templateUrl : "../templates/home.html",
+          controller : "appController"
         })
         .when("/about", {
-          templateUrl : "about.html"
+          templateUrl : "../templates/about.html",
+          controller : "appController"
         })
-        .when("/contact-us", {
-          templateUrl : "contact.html"
-        });
-      })
+        .when("/contact", {
+          templateUrl : "../templates/contact.html",
+          controller : "appController"
+        })
+        $locationProvider.html5Mode(true);
+    })

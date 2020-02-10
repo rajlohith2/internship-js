@@ -7,59 +7,63 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
         <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.js"></script>
+        <script src= "scripts/search.js"></script>
+        <base href="/">
 
-        <script src= "search.js"></script>
     </head>
     <body>
-        <p>Basic Page</p>
-
         <h1>Online Movie Database</h1>
 
         <div class="topnav">
-            <a href="#/home">Home</a>
-            <a href="#">Movies</a>
-            <a href="#">TVShows</a>
-            <a href="#/about">About</a>
-            <a href="#/contact">Contact Us</a>
+            <a href="/home">Home</a>
+            <a href="">Movies</a>
+            <a href="">TVShows</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact Us</a>
             <input type="text" placeholder="search" ng-model="searchText" ng-model-options="{debounce: 1000}" ng-change="apiCall()">
             <button ng-click="apiCall()">Search</button>
         </div>
+        <p ng-show="showMessage()"> Enter at least 3 characters to perform search operation</p>
         <ng-view></ng-view>
-    <button ng-click="filterButtonClicked = !filterButtonClicked" > Add Filter </button>
-    <div id=filter ng-if="filterButtonClicked">
-        Type:
-        <label data-ng-repeat="t in types">
-            <input name="chosenType" type="radio" value="{{t}}" ng-model="filters.type" />{{t}} <br>
-        </label>
-        Year:
-        <select ng-model="filters.year">
-            <option ng-repeat="year in years" value="{{year}}">{{ year }}</option> 
-        </select>
-        {{ filters.year}}
-        <button ng-click="apiCall()" > Apply </button>
-    </div>
-    
-    
-            <table>
-                <th>
-                        <td><button ng-click="sortBy('Title')">Title</button></td>
-                        <td><button ng-click="sortBy('Year')">Year</button></td>
-                        <td>Category</td>
-                </th>     
-                    
-                <tr ng-repeat="movie in movieData | orderBy : sortValue : reverse">
-                    <td></td>
-                    <td>{{movie.Title}}</td>
-                    <td>{{movie.Year}}</td>
-                    <td>{{movie.Type}}</td>
-                </tr>
-            </table>
-
-            <div>
-                <button ng-click="prevHandler()" ng-disabled="pageNo==1 || totalPages==1"> &lt&ltPrevious </button>
-                <button ng-click="nextHandler()" ng-disabled="pageNo==totalPages || totalPages == 1"> Next&gt&gt </button>
-
+        <div ng-if="movieData">
+            <button ng-click="filterButtonClicked = !filterButtonClicked" > Add Filter </button>
+            <div id=filter ng-if="filterButtonClicked">
+                Type:
+                <label data-ng-repeat="t in types">
+                    <input name="chosenType" type="radio" value="{{t}}" ng-model="filters.type" />{{t}} <br>
+                </label>
+                Year:
+                <select ng-model="filters.year">
+                    <option ng-repeat="year in years" value="{{year}}">{{ year }}</option> 
+                </select>
+                {{ filters.year}}
+                <button ng-click="apiCall()" > Apply </button>
             </div>
+        
+        
+                <table>
+                    <th>
+                            <td><button ng-click="sortBy('Title')">Title</button></td>
+                            <td><button ng-click="sortBy('Year')">Year</button></td>
+                            <td>Category</td>
+                    </th>     
+                        
+                    <tr ng-click="apiCall2()" ng-repeat="movie in movieData | orderBy : sortValue : reverse">
+                            <td></td>
+                            <td>{{movie.Title}}</td>
+                            <td>{{movie.Year}}</td>
+                            <td>{{movie.Type}}</td>
+                    </tr>
+                </table>
+    
+                <div>
+                    <button ng-click="prevHandler()" ng-disabled="pageNo==1 || totalPages==1"> &lt&ltPrevious </button>
+                    <button ng-click="nextHandler()" ng-disabled="pageNo==totalPages || totalPages == 1"> Next&gt&gt </button>
+    
+                </div>
+
+        </div>
+
         </div>  
     </body>
 </html>
