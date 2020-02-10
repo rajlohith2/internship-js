@@ -6,6 +6,8 @@
         <title>Movie Database</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+        <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.js"></script>
+
         <script src= "search.js"></script>
     </head>
     <body>
@@ -14,21 +16,36 @@
         <h1>Online Movie Database</h1>
 
         <div class="topnav">
-            <a href="#">Home</a>
+            <a href="#/home">Home</a>
             <a href="#">Movies</a>
             <a href="#">TVShows</a>
-            <a href="#">About</a>
-            <a href="#">Contact Us</a>
+            <a href="#/about">About</a>
+            <a href="#/contact">Contact Us</a>
             <input type="text" placeholder="search" ng-model="searchText" ng-model-options="{debounce: 1000}" ng-change="apiCall()">
-            <button ng-click="apiCall">Search</button>
-
+            <button ng-click="apiCall()">Search</button>
         </div>
+        <ng-view></ng-view>
+    <button ng-click="filterButtonClicked = !filterButtonClicked" > Add Filter </button>
+    <div id=filter ng-if="filterButtonClicked">
+        Type:
+        <label data-ng-repeat="t in types">
+            <input name="chosenType" type="radio" value="{{t}}" ng-model="filters.type" />{{t}} <br>
+        </label>
+        Year:
+        <select ng-model="filters.year">
+            <option ng-repeat="year in years" value="{{year}}">{{ year }}</option> 
+        </select>
+        {{ filters.year}}
+        <button ng-click="apiCall()" > Apply </button>
+    </div>
+    
+    
             <table>
                 <th>
                         <td><button ng-click="sortBy('Title')">Title</button></td>
                         <td><button ng-click="sortBy('Year')">Year</button></td>
                         <td>Category</td>
-                </th>      
+                </th>     
                     
                 <tr ng-repeat="movie in movieData | orderBy : sortValue : reverse">
                     <td></td>
@@ -43,22 +60,6 @@
                 <button ng-click="nextHandler()" ng-disabled="pageNo==totalPages || totalPages == 1"> Next&gt&gt </button>
 
             </div>
-
- <!--       <div id="filter-list">
-            <button type="button" ng-click="showFilterOptions()">Advanced Search</button>
-            
-            <div ng-if="showFilter" id="filter-box">
-                <ul>
-                    <li>
-                        <input type="checkbox" name="genre" ng-model="genreValue">Genre</input></li>
-                        <ul ng-if="genreValue">
-                            <li><input type="checkbox" name="drama">Drama</input></li>
-                            <li><input type="checkbox" name="action">Action</input></li>
-                            <li><input type="checkbox" name="comedy">Comedy</input></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div> -->
         </div>  
     </body>
 </html>
