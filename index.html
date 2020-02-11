@@ -1,33 +1,30 @@
 <!DOCTYPE html>
 <html ng-app="myApp" ng-controller="appController" ng-init="performSearch()">
     <head>
+        <title>Movie Database</title>
+        <base href="/">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Movie Database</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
         <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.js"></script>
         <script src= "scripts/search.js"></script>
         <script src= "scripts/apiCall.service.js"></script>
 
-        <base href="/">
 
     </head>
     <body>
         <h1>Online Movie Database</h1>
 
         <div class="topnav">
-            <a href="/home">Home</a>
-            <a href="/about">About</a>
-            <a href="/contact">Contact Us</a>
+            <a href="home">Home</a>
+            <a href="about">About</a>
+            <a href="contact">Contact Us</a>
             <input type="text" placeholder="search" ng-model="searchText" ng-model-options="{debounce: 1000}" ng-change="performSearch()">
-            <button ng-click="performSearch()">Search</button>
-            
+            <button>Search</button>
         </div>
         <p ng-show="showMessage()"> Enter at least 3 characters to perform search operation</p>
         <ng-view></ng-view>
         <p ng-show="noResults">No Results Found. Please try a different search text or filter</p>
-
-  
     </body>
 </html>

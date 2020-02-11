@@ -1,5 +1,5 @@
 angular.module('myApp',['ngRoute','apiService'])
-       .controller('appController',function($scope,$http,getMovies){
+       .controller('appController',function($scope,$http,getMovies,$location){
             $scope.pageNo = 1
             $scope.showFilter = false
             $scope.reverse = false
@@ -14,6 +14,7 @@ angular.module('myApp',['ngRoute','apiService'])
                 $scope.years.push(i)
             }
             $scope.performSearch = function(){
+                $location.path('home')
                 if(!$scope.searchText || $scope.searchText.length <3){
                     searchText = 'abc'
                 }
@@ -31,10 +32,14 @@ angular.module('myApp',['ngRoute','apiService'])
                     function(response){
                         if(response.data.Response === "False"){
                             $scope.noResults = true
+                            $scope.movieData = null
+                        
                         }
                         else{
                             $scope.noResults = false
                             $scope.movieData = response.data.Search;
+                            $scope.totalResults = response.data.totalResults
+                            $scope.noOfMovies = $scope.movieData.length
                             $scope.totalPages = parseInt(response.data.totalResults)/10+1
                         }
                     }
@@ -83,7 +88,7 @@ angular.module('myApp',['ngRoute','apiService'])
                 }
             }
             })
-        .controller('infoController',function($scope,$http,$routeParams,getMovies){
+        .controller('infoController',function($scope,$routeParams,getMovies){
             $scope.getMovieDetails = function(id){
                 getMovies.getMoviesBySearch(('http://www.omdbapi.com/?apikey=f765e195&i='+$routeParams.id+'&plot=full')).then(
                     function(response){
@@ -103,8 +108,8 @@ angular.module('myApp',['ngRoute','apiService'])
         })
         .config(function($routeProvider,$locationProvider) {
             $routeProvider
-            .when("/movies", {
-            templateUrl : "../templates/movies-list.html",
+            .when("/home", {
+            templateUrl : "../templates/home.html",
             controller : "appController"
             })
             .when("/about", {
@@ -115,10 +120,10 @@ angular.module('myApp',['ngRoute','apiService'])
             templateUrl : "../templates/contact.html",
             controller : "appController"
             })
-            .when("/movies/:id", {
+            .when("/home/:id", {
                 templateUrl : "../templates/info-page.html",
                 controller : "infoController"
                 })
-            .otherwise({redirectTo: "/movies"})
+            .otherwise({redirectTo: "/home"})
             $locationProvider.html5Mode(true);
         })

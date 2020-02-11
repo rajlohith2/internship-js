@@ -1,5 +1,4 @@
 <div>
-    <p ng-show="showMessage()"> Enter at least 3 characters to perform search operation</p>
     <button ng-click="filterButtonClicked = !filterButtonClicked" > Filter </button>
     <button ng-hide="hideClearFilterButton" ng-click="clearFilters()" > Clear Filters </button>
     <div id=filter ng-if="filterButtonClicked">
@@ -14,6 +13,7 @@
         <button ng-click="applyButtonClicked()" > Apply </button>
     </div>
     <table  ng-if="movieData">
+        <p ng-if="movieData">Showing {{(pageNo-1)*10+1}} to {{(pageNo-1)*10+noOfMovies}} of {{totalResults}} Results</p>
         <th>
                 <td><a href="#" ng-click="sortBy('Title')">Title</a></td>
                 <td><a href="#" ng-click="sortBy('Year')">Year</a></td>
