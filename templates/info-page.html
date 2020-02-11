@@ -1,4 +1,36 @@
-<div ng-controller="infoPageController">
+<div ng-controller="infoController" ng-init="getMovieDetails()">
+    <figure>
+        <img ng-show="!posterExists" ng-src="/img/noPoster.jpg">
+        <img ng-show="posterExists" ng-src="{{response.Poster}}">
+        <figcaption>{{ response.Title }}</figcaption>
+    </figure>
 
-    
+      <div id="movie-data">
+          <h3>{{ response.Title }}</h3>
+          <h4>{{ response.Type }}</h4>
+          <h4>{{ response.Year }}</h5>
+          <strong>Language:</strong><span>{{ response.Language }}</span><br>
+          <strong>Country:</strong><span>{{ response.Country }}</span><br>
+          <strong>Runtime:</strong><span>{{ response.Runtime }}</span><br>
+          <strong>Genre:</strong><span>{{ response.genre }}</span><br>
+          <strong>Director:</strong><span>{{ response.Director }}</span><br>
+          <strong>Writer:</strong><span>{{ response.Writer }}</span><br>
+          <strong>Cast:</strong><span>{{ response.Actors }}</span><br>
+          <strong>Plot:</strong><span>{{ response.Plot }}</span><br>
+          <strong>Writer:</strong><span>{{ response.Writer }}</span><br>
+          <strong>Awards:</strong><span>{{ response.Awards }}</span><br>
+          <strong>Box Office:</strong><span>{{ response.BoxOffice }}</span><br>
+          <strong>Production:</strong><span>{{ response.Production }}</span><br>
+
+          <h4>Ratings</h4>
+          <ul>
+              <li ng-repeat="rating in response.Ratings">
+                  {{rating.Source}}: {{rating.Value}}<br>
+              </li>
+          </ul>
+          <strong>IMDb ID:</strong><span>{{ response.imdbID }}</span><br>
+          <strong>IMDb Rating:</strong><span>{{ response.imdbRating }}</span><br>
+          <strong>IMDb Votes:</strong><span>{{ response.imdbVotes }}</span><br>
+          <strong>Metascore:</strong><span>{{ response.Metascore }}</span><br>
+      </div>
 </div>

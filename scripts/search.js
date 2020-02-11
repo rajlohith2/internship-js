@@ -4,7 +4,6 @@ angular.module('myApp',['ngRoute','apiService'])
             $scope.showFilter = false
             $scope.reverse = false
             $scope.sortValue = "Title"
-            $scope.totalPages = 1
             $scope.filterButtonClicked = false
             $scope.filters = {}
             $scope.types = ["movie","series","episode"]
@@ -33,8 +32,11 @@ angular.module('myApp',['ngRoute','apiService'])
                         if(response.data.Response === "False"){
                             $scope.noResults = true
                         }
-                        $scope.movieData = response.data.Search;
-                        $scope.totalPages = parseInt((response.data.totalResults/10))+1
+                        else{
+                            $scope.noResults = false
+                            $scope.movieData = response.data.Search;
+                            $scope.totalPages = parseInt(response.data.totalResults)/10+1
+                        }
                     }
                 )
                 
@@ -55,9 +57,6 @@ angular.module('myApp',['ngRoute','apiService'])
             $scope.nextHandler = function(){
                 $scope.pageNo++;
                 $scope.performSearch();
-            }
-            $scope.showMovieDetails = function(){
-
             }
             $scope.showMessage = function(){
                 if(!$scope.searchText || $scope.searchText.length < 3){
@@ -84,10 +83,28 @@ angular.module('myApp',['ngRoute','apiService'])
                 }
             }
             })
+        .controller('infoController',function($scope,$http,$routeParams,getMovies){
+            $scope.getMovieDetails = function(id){
+                getMovies.getMoviesBySearch(('http://www.omdbapi.com/?apikey=f765e195&i='+$routeParams.id+'&plot=full')).then(
+                    function(response){
+                        $scope.response = response.data
+                        let poster = $scope.response.Poster
+                        let len = poster.length
+                        if(len>3){
+                            $scope.posterExists = true
+                        }
+                        else{
+                            $scope.posterExists = false
+                        }
+                        
+                            
+                    })
+            }
+        })
         .config(function($routeProvider,$locationProvider) {
             $routeProvider
-            .when("/home", {
-            templateUrl : "../templates/home.html",
+            .when("/movies", {
+            templateUrl : "../templates/movies-list.html",
             controller : "appController"
             })
             .when("/about", {
@@ -98,5 +115,10 @@ angular.module('myApp',['ngRoute','apiService'])
             templateUrl : "../templates/contact.html",
             controller : "appController"
             })
+            .when("/movies/:id", {
+                templateUrl : "../templates/info-page.html",
+                controller : "infoController"
+                })
+            .otherwise({redirectTo: "/movies"})
             $locationProvider.html5Mode(true);
         })
