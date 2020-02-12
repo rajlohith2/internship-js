@@ -14,7 +14,7 @@ angular.module('myApp',['ngRoute','apiService'])
                 $scope.years.push(i)
             }
             $scope.performSearch = function(){
-                $location.path('home')
+                
                 if(!$scope.searchText || $scope.searchText.length <3){
                     searchText = 'abc'
                 }
@@ -112,6 +112,10 @@ angular.module('myApp',['ngRoute','apiService'])
             templateUrl : "../templates/home.html",
             controller : "appController"
             })
+            .when("/", {
+                templateUrl : "../templates/home.html",
+                controller : "appController"
+                })
             .when("/about", {
             templateUrl : "../templates/about.html",
             controller : "appController"
@@ -124,6 +128,6 @@ angular.module('myApp',['ngRoute','apiService'])
                 templateUrl : "../templates/info-page.html",
                 controller : "infoController"
                 })
-            .otherwise({redirectTo: "/home"})
+            .otherwise({redirectTo: "/"})
             $locationProvider.html5Mode(true);
         })
