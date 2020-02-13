@@ -87,6 +87,10 @@ angular.module('myApp',['ngRoute','apiService'])
                     $scope.hideClearFilterButton = false
                 }
             }
+
+            $scope.goToInfoPage = function(id){
+                $location.path('home/' + id);
+            }
             })
         .controller('infoController',function($scope,$routeParams,getMovies){
             $scope.getMovieDetails = function(id){
