@@ -119,11 +119,17 @@ figure{
 .table-row{
     cursor: pointer;
 }
-.mov-info{
+.mov-info, #contact-text,#about-text{
     margin-top: 8px;
     margin-bottom: 8px;
     font-size: 22px;
     font-family: 'Cardo';
+}
+
+#about-text{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 5%;
 }
 .nav-collapse3{
     margin-left: 78px;

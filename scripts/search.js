@@ -92,8 +92,8 @@ angular.module('myApp',['ngRoute','apiService'])
                 $location.path('home/' + id);
             }
             $scope.goHome = function(){
-                $scope.filterButtonClicked = false
-                $location.path('home')
+                $scope.performSearch()
+                $location.path('/home')
                 
             }
             })
