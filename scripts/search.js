@@ -91,6 +91,11 @@ angular.module('myApp',['ngRoute','apiService'])
             $scope.goToInfoPage = function(id){
                 $location.path('home/' + id);
             }
+            $scope.goHome = function(){
+                $scope.filterButtonClicked = false
+                $location.path('home')
+                
+            }
             })
         .controller('infoController',function($scope,$routeParams,getMovies){
             $scope.getMovieDetails = function(id){

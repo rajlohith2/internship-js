@@ -1,37 +1,38 @@
-<div ng-controller="infoController" ng-init="getMovieDetails()">
+<div style="min-height: 700px;" ng-controller="infoController" ng-init="getMovieDetails()">
     <figure>
-        <img ng-show="!posterExists" ng-src="/img/noPoster.jpg">
+        <img class=""ng-show="!posterExists" ng-src="/img/noPoster.jpg">
         <img ng-show="posterExists" ng-src="{{response.Poster}}">
-        <figcaption>{{ response.Title }}</figcaption>
     </figure>
+    <h1 style="font-family: Acme;font-size: 40px; font-weight: bold;">{{ response.Title }} ({{ response.Year }})</h1>
+    <span class="glyphicon glyphicon-star"></span>
+    <span>{{ response.imdbRating }}/10  </span>|
+    <span class="glyphicon glyphicon-hourglass"></span>
+    {{ response.Runtime }}  |      <i class="fa fa-language" style="font-size:20px"></i> {{response.Language}}  |  {{ response.Type }}
+
+
+    
 
       <div id="movie-data">
-          <h3>{{ response.Title }}</h3>
-          <h4>{{ response.Type }}</h4>
-          <h4>{{ response.Year }}</h5>
-          <strong>Language:</strong><span>{{ response.Language }}</span><br>
-          <strong>Country:</strong><span>{{ response.Country }}</span><br>
-          <strong>Runtime:</strong><span>{{ response.Runtime }}</span><br>
-          <strong>Genre:</strong><span>{{ response.Genre }}</span><br>
-          <strong>Director:</strong><span>{{ response.Director }}</span><br>
-          <strong>Writer:</strong><span>{{ response.Writer }}</span><br>
-          <strong>Cast:</strong><span>{{ response.Actors }}</span><br>
-          <strong>Plot:</strong><span>{{ response.Plot }}</span><br>
-          <strong>Writer:</strong><span>{{ response.Writer }}</span><br>
-          <strong>Awards:</strong><span>{{ response.Awards }}</span><br>
-          <strong>Box Office:</strong><span>{{ response.BoxOffice }}</span><br>
-          <strong>Production:</strong><span>{{ response.Production }}</span><br>
-
-          <h4>Ratings</h4>
-          <ul>
+          <div class="mov-info"><strong>Genre: </strong>{{ response.Genre }}</div>
+          <div class="mov-info"><strong>Country: </strong>{{ response.Country }}</div>
+          <div class="mov-info"><strong>Plot: </strong>{{ response.Plot }}</div>
+          <div class="mov-info"><strong>Cast: </strong>{{ response.Actors }}</div>
+          <div class="mov-info"><strong>Director: </strong>{{ response.Director }}</div>
+          <div class="mov-info"><strong>Writer: </strong>{{ response.Writer }}</div>
+          <div class="mov-info"><strong>Box Office: </strong>{{ response.BoxOffice }}</div>
+          <div class="mov-info"><strong>Production: </strong>{{ response.Production }}</div>
+          <h4 style="font-family: Cardo; font-size: 22px;"><strong>Ratings: </strong></h4>
+          <ul  style="list-style-type: none;" class="mov-info">
               <li ng-repeat="rating in response.Ratings">
                   {{rating.Source}}: {{rating.Value}}<br>
               </li>
           </ul>
-          <strong>IMDb ID:</strong><span>{{ response.imdbID }}</span><br>
-          <strong>IMDb Rating:</strong><span>{{ response.imdbRating }}</span><br>
-          <strong>IMDb Votes:</strong><span>{{ response.imdbVotes }}</span><br>
-          <strong>Metascore:</strong><span>{{ response.Metascore }}</span><br>
+          <div class="mov-info"><strong>IMDb ID: </strong>{{ response.imdbID }}</div>
+          <div class="mov-info"><strong>IMDb Rating: </strong>{{ response.imdbRating }}</div>
+          <div class="mov-info"><strong>IMDb Votes: </strong>{{ response.imdbVotes }}</div>
+          <div class="mov-info"><strong>Metascore: </strong>{{ response.Metascore }}</div>
       </div>
-      <a href="home">Go Back Home</a>
+      <button ng-click="goHome()" type="button" class="btn btn-primary btn-round-lg text-right" data-toggle="collapse" data-target="#filter-panel">
+        <span ng-click="filterButtonClicked = !filterButtonClicked"></span> Go Back Home
+    </button>
 </div>

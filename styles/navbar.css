@@ -25,6 +25,9 @@
     .navbar .nav-collapse .navbar-form { margin: 0; }
     .nav-collapse>li { float: none; }
 }
+    body {
+        font-family: 'Lato', sans-serif;
+        }
 
 
 
@@ -101,6 +104,12 @@ section .section-title {
     left: 35%;
 }
 
+figure{
+    float: left;
+    max-width: 290px;
+    min-height: 900px;
+}
+
 .search-box{
     margin-left: 80px;
 }
@@ -110,7 +119,12 @@ section .section-title {
 .table-row{
     cursor: pointer;
 }
-
+.mov-info{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 22px;
+    font-family: 'Cardo';
+}
 .nav-collapse3{
     margin-left: 78px;
     min-width: 300px !important;
