@@ -10,10 +10,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/angular": "^1.6.57"
+    "@types/angular": "^1.6.57",
+    "nodemon": "^2.0.2"
   },
   "dependencies": {
     "angular-route": "^1.7.9",
+    "connect-modrewrite": "^0.10.2",
+    "express": "^4.17.1",
     "request": "^2.88.0"
   }
 }

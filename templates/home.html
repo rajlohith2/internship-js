@@ -1,0 +1,63 @@
+<div class="container" style="margin-top: 10px;">
+        <div class="row">
+            <div id="filter-panel" class="collapse filter-panel">
+                <div class="panel panel-default col-sm-12 col-md-6 col-lg-4">
+                    <div class="panel-body">
+                            <div class="form-group">
+                                <label class="filter-col" style="margin-right:0; padding-left:10px;
+                                    padding-right:10px;" for="pref-perpage">Year of Release</label>
+                                <select id="pref-perpage" class="form-control" ng-model="filters.year">
+                                    <option>Year</option>
+                                    <option ng-repeat="year in years" value="{{year}}">{{ year }}</option> 
+                                </select>
+                                <label class="filter-col" style="margin-right:0; padding-left:10px;
+                                    padding-right:10px;" for="pref-perpage">Category:</label>
+                                <select id="pref-perpage" class="form-control" ng-model="filters.type">
+                                    <option selected>Category</option>
+                                    <option ng-repeat="type in types" value="{{type}}">{{ type }}</option> 
+                                </select>                                    
+                            </div>                                       
+                                <button type="submit" class="btn btn-default filter-col" ng-click="applyButtonClicked()" data-toggle="collapse" data-target="#filter-panel">
+                                    <span class="glyphicon glyphicon-record"></span> Apply Filters
+                                </button>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>                                                   
+    
+      
+    <div style="margin-bottom: 5px;"class="container">
+        <div class="row">
+            <span class="col-lg-10" ng-if="movieData">Showing {{(pageNo-1)*10+1}} to {{(pageNo-1)*10+noOfMovies}} of {{totalResults}} Results</span>
+            <button type="button" class="btn btn-primary btn-round-lg text-right" data-toggle="collapse" data-target="#filter-panel">
+                <span ng-click="filterButtonClicked = !filterButtonClicked" class="glyphicon glyphicon-cog"></span> Filter
+            </button>
+            <button type="button" class="btn btn-primary btn-round-lg" ng-hide="hideClearFilterButton" ng-click="clearFilters()" > Clear Filters </button>
+        </div>
+    </div>
+    <div style="min-height: 700px;" class="container">
+    <table  ng-if="movieData" class="w3-table-all w3-hoverable">
+        <th>
+                <td><strong><a href="#" ng-click="sortBy('Title')">Title</a></strong></td>
+                <td><strong><a w3-color-red href="#" ng-click="sortBy('Year')">Year</a></strong></td>
+                <td><strong>Category</strong></td>
+                <td><strong>IMDb ID</strong></td>
+        </th>             
+        <tr class="table-row" ng-repeat="movie in movieData | orderBy : sortValue : reverse" ng-click="goToInfoPage(movie.imdbID)">
+                <td></td>
+                <td>{{movie.Title}}</td>
+                <td>{{movie.Year}}</td>
+                <td>{{movie.Type}}</td>
+                <td>{{movie.imdbID}}</td>
+        </tr>
+    </table>    
+    <div style="margin-top: 8px;" class="text-center" ng-if="movieData">
+        <button  class="btn btn-primary btn-round-lg text-right" ng-click="prevHandler()" ng-disabled="pageNo == 1 || totalPages == 1" style="margin-right:200px">
+            &lt&ltPrevious
+        </button>
+        <button class="btn btn-primary btn-round-lg text-right" ng-click="nextHandler()" ng-disabled="pageNo == totalPages || totalPages == 1" style="margin-left:200px">
+            Next&gt&gt
+        </button> 
+    </div>
+</div>
