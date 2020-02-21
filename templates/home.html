@@ -39,10 +39,10 @@
     <div style="min-height: 700px;" class="container">
     <table  ng-if="movieData" class="w3-table-all w3-hoverable">
         <th>
-                <td><a href="#" ng-click="sortBy('Title')">Title</a></td>
-                <td><a w3-color-red href="#" ng-click="sortBy('Year')">Year</a></td>
-                <td>Category</td>
-                <td>imDb-ID</td>
+                <td><strong><a href="#" ng-click="sortBy('Title')">Title</a></strong></td>
+                <td><strong><a w3-color-red href="#" ng-click="sortBy('Year')">Year</a></strong></td>
+                <td><strong>Category</strong></td>
+                <td><strong>IMDb ID</strong></td>
         </th>             
         <tr class="table-row" ng-repeat="movie in movieData | orderBy : sortValue : reverse" ng-click="goToInfoPage(movie.imdbID)">
                 <td></td>
